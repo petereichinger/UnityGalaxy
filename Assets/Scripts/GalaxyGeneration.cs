@@ -32,7 +32,7 @@ public class GalaxyGeneration {
 		int galaxySize = 2048,
 		int starCount = 10000,
 		int numberOfArms = 5,
-		float armOffsetMax = 1f,
+		float armOffsetMax = 0.5f,
 		float rotationFactor = 5f,
 		float randomOffsetXY = 0.02f,
 		Gradient colorGradient = null) {
@@ -65,8 +65,9 @@ public class GalaxyGeneration {
 			float angle = Random.value * 2 * Mathf.PI; // random angle
 
 			// Calculate arm offset
-			float armOffset = Random.value * this.armOffsetMax;	// arm offset angle so it spreads out
-			armOffset = armOffset - armOffsetMax / 2;
+			float armOffset = RandomHelpers.gaussianRandom * this.armOffsetMax;	// arm offset angle so it spreads out
+			
+			armOffset = armOffset / 2;
 			armOffset = armOffset * (1 / distance);
 
 			float squaredArmOffset = Mathf.Pow(armOffset, 2);
@@ -100,12 +101,11 @@ public class GalaxyGeneration {
 			if (starColorGradient != null) {
 				starColor = starColorGradient.Evaluate(Random.value);
 			}
-
 			// Set color at position
 			CreateStar(pixelX, pixelY, starColor);
 
 		}
-		Texture2D universeTexture = new Texture2D(this.galaxySize, this.galaxySize);
+		Texture2D universeTexture = new Texture2D(this.galaxySize, this.galaxySize, TextureFormat.RGBA32, false);
 		universeTexture.SetPixels32(universeColors);
 		universeTexture.Apply();
 		this.galaxyMaterial.mainTexture = universeTexture;

@@ -109,6 +109,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 456edd60ac00b4d448d72d14c3c6019b, type: 2}
+      propertyPath: galaxyResolution
+      value: 2048
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 456edd60ac00b4d448d72d14c3c6019b, type: 2}
   m_RootGameObject: {fileID: 1347453319}
@@ -231,7 +235,7 @@ MonoBehaviour:
   useSeed: 0
   seed: 123123
   numberOfStars: 10000
-  galaxyResolution: 1024
+  galaxyResolution: 2048
   numberOfArms: 5
   swirlAmount: 3
   starColorGradient:

@@ -20,4 +20,3 @@ The performance is not the best (`SetPixel()` and `Apply()` are expensive).
 ## Todo ##
 
 - Additional random stars
-- Anti aliasing
