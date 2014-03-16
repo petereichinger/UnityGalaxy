@@ -68,9 +68,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   galaxyParticleSystem: {fileID: 19800000}
+  useSeed: 0
+  seed: 123123
   numberOfStars: 10000
-  seed: 1337
-  size: 3
+  galaxySize: 3
+  numberOfArms: 5
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
