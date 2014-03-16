@@ -43,7 +43,7 @@ public class GalaxyGeneration {
 		if (seed.HasValue) {
 			Random.seed = this.seed.Value;
 		}
-		Color[] universeColors = CreateClearColorArray(this.galaxySize);
+		Color32[] universeColors = CreateClearColorArray(this.galaxySize);
 		for (int i = 0; i < this.starCount; i++) {	// for loop for stars
 			float distance = Random.value;	// random distance between 0 and size
 			float angle = Random.value * 2 * Mathf.PI; // random angle
@@ -88,15 +88,15 @@ public class GalaxyGeneration {
 			universeColors[pixelX + this.galaxySize * pixelY] = starColor;
 		}
 		Texture2D universeTexture = new Texture2D(this.galaxySize, this.galaxySize);
-		universeTexture.SetPixels(universeColors);
+		universeTexture.SetPixels32(universeColors);
 		universeTexture.Apply();
 		this.galaxyMaterial.mainTexture = universeTexture;
 	}
 
-	private static Color[] CreateClearColorArray(int size) {
-		Color[] clearColor = new Color[size * size];
+	private static Color32[] CreateClearColorArray(int size) {
+		Color32[] clearColor = new Color32[size * size];
 		for (int i = 0; i < clearColor.Length; i++) {
-			clearColor[i] = Color.clear;
+			clearColor[i] = new Color32(0, 0, 0, 0);
 		}
 		return clearColor;
 	}
