@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+///  Component that starts the galaxy generation.
+/// </summary>
 public class GalaxyGeneratorComponent : MonoBehaviour {
 	public MeshRenderer galaxyRenderer;
 

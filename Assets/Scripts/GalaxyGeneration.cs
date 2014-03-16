@@ -16,7 +16,7 @@ public class GalaxyGeneration {
 	private Gradient starColorGradient;
 	private Color32[] universeColors;
 	/// <summary>
-	/// Creates a nwe Galaxy generator.
+	/// Creates a new Galaxy generator.
 	/// </summary>
 	/// <param name="material">The material in which the galaxy should be saved</param>
 	/// <param name="seed">A seed for the generation, null if no specific seed should be used.</param>
@@ -52,6 +52,9 @@ public class GalaxyGeneration {
 		this.armSeperationAngle = 2 * Mathf.PI / this.numberOfArms;
 	}
 
+	/// <summary>
+	/// Creates the galaxy with the values specified in the constructor.
+	/// </summary>
 	public void Generate() {
 		if (seed.HasValue) {
 			Random.seed = this.seed.Value;
