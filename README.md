@@ -6,6 +6,5 @@ The code is adapted from [Itinerant Games tumblr post](http://itinerantgames.tum
 
 ## Todo ##
 
-- Colors
 - Additional random stars
-- Use a texture not the particle system
+- Anti aliasing
