@@ -19,7 +19,15 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
- 
+*.sln.DotSettings
+
+# ======== #
+# Unity VS #
+# ======== #
+
+Assets/UnityVS
+Assets/UnityVS.meta
+
 # ============ #
 # OS generated #
 # ============ #
