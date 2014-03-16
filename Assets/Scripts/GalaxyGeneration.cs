@@ -13,6 +13,7 @@ public class GalaxyGeneration {
 	private float armOffsetMax;
 	private float rotationFactor;
 	private float randomOffsetXY;
+	private Gradient starColorGradient;
 	public GalaxyGeneration(Material material,
 		int? seed = null,
 		int galaxySize = 2048,
@@ -20,7 +21,8 @@ public class GalaxyGeneration {
 		int numberOfArms = 5,
 		float armOffsetMax = 1f,
 		float rotationFactor = 5f,
-		float randomOffsetXY = 0.02f) {
+		float randomOffsetXY = 0.02f,
+		Gradient colorGradient = null) {
 
 		// Set fields according to parameters
 		this.seed = seed;
@@ -31,7 +33,7 @@ public class GalaxyGeneration {
 		this.armOffsetMax = armOffsetMax;
 		this.rotationFactor = rotationFactor;
 		this.randomOffsetXY = randomOffsetXY;
-
+		this.starColorGradient = colorGradient;
 
 		// Calculate helpers
 		this.armSeperationAngle = 2 * Mathf.PI / this.numberOfArms;
@@ -64,7 +66,6 @@ public class GalaxyGeneration {
 
 
 			//Calculate position using cos and sin
-
 			float starX = Mathf.Cos(angle) * distance;
 			float starY = Mathf.Sin(angle) * distance;
 			float randomOffsetX = Random.value * randomOffsetXY;
@@ -73,14 +74,18 @@ public class GalaxyGeneration {
 			starX += randomOffsetX;
 			starY += randomOffsetY;
 
-
-
-
+			// Convert to pixel coordinates
 			int pixelX = Mathf.Clamp((int)(((starX + 1f) / 2f) * this.galaxySize), 0, this.galaxySize - 1);
 			int pixelY = Mathf.Clamp((int)(((starY + 1f) / 2f) * this.galaxySize), 0, this.galaxySize - 1);
-			
-			// emit a particle at the position
-			universeColors[pixelX + this.galaxySize * pixelY] = Color.white;
+
+			Color starColor = Color.white;
+
+			if (starColorGradient != null) {
+				starColor = starColorGradient.Evaluate(Random.value);
+			}
+
+			// Set pixel at position
+			universeColors[pixelX + this.galaxySize * pixelY] = starColor;
 		}
 		Texture2D universeTexture = new Texture2D(this.galaxySize, this.galaxySize);
 		universeTexture.SetPixels(universeColors);
