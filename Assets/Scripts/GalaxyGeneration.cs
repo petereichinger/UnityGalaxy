@@ -80,11 +80,12 @@ public class GalaxyGeneration {
 
 			Color starColor = Color.white;
 
+			// If a color gradient was provided sample it for some nice color
 			if (starColorGradient != null) {
 				starColor = starColorGradient.Evaluate(Random.value);
 			}
 
-			// Set pixel at position
+			// Set color at position
 			universeColors[pixelX + this.galaxySize * pixelY] = starColor;
 		}
 		Texture2D universeTexture = new Texture2D(this.galaxySize, this.galaxySize);
