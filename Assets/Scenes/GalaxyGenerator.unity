@@ -109,6 +109,14 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 456edd60ac00b4d448d72d14c3c6019b, type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 456edd60ac00b4d448d72d14c3c6019b, type: 2}
+      propertyPath: swirlAmount
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 456edd60ac00b4d448d72d14c3c6019b, type: 2}
   m_RootGameObject: {fileID: 1347453319}
@@ -354,7 +362,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: .100000001
+      scalar: .0500000007
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1275,6 +1283,7 @@ MonoBehaviour:
   numberOfStars: 10000
   galaxySize: 3
   numberOfArms: 5
+  swirlAmount: 3
 --- !u!1 &1775206057
 GameObject:
   m_ObjectHideFlags: 0
