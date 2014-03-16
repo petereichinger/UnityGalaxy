@@ -4,18 +4,18 @@ using System.Collections.Generic;
 
 public class GalaxyGeneration {
 
-	private ParticleSystem galaxyParticles;
+	private Material galaxyMaterial;
 	private int starCount;
 	private int? seed;
-	private float galaxySize;
+	private int galaxySize;
 	private int numberOfArms;
 	private float armSeperationAngle;
 	private float armOffsetMax;
 	private float rotationFactor;
 	private float randomOffsetXY;
-	public GalaxyGeneration(ParticleSystem particleSystem,
+	public GalaxyGeneration(Material material,
 		int? seed = null,
-		float galaxySize = 1,
+		int galaxySize = 2048,
 		int starCount = 10000,
 		int numberOfArms = 5,
 		float armOffsetMax = 1f,
@@ -24,13 +24,15 @@ public class GalaxyGeneration {
 
 		// Set fields according to parameters
 		this.seed = seed;
-		this.galaxyParticles = particleSystem;
+		this.galaxyMaterial = material;
 		this.starCount = starCount;
 		this.galaxySize = galaxySize;
 		this.numberOfArms = numberOfArms;
 		this.armOffsetMax = armOffsetMax;
 		this.rotationFactor = rotationFactor;
 		this.randomOffsetXY = randomOffsetXY;
+
+
 		// Calculate helpers
 		this.armSeperationAngle = 2 * Mathf.PI / this.numberOfArms;
 	}
@@ -39,7 +41,7 @@ public class GalaxyGeneration {
 		if (seed.HasValue) {
 			Random.seed = this.seed.Value;
 		}
-		galaxyParticles.Clear();// Remove all particles from galaxyParticles
+		Color[] universeColors = CreateClearColorArray(this.galaxySize);
 		for (int i = 0; i < this.starCount; i++) {	// for loop for stars
 			float distance = Random.value;	// random distance between 0 and size
 			float angle = Random.value * 2 * Mathf.PI; // random angle
@@ -73,11 +75,24 @@ public class GalaxyGeneration {
 
 
 
-			Vector3 position = this.galaxySize * new Vector3(starX, starY);
 
-
+			int pixelX = Mathf.Clamp((int)(((starX + 1f) / 2f) * this.galaxySize), 0, this.galaxySize - 1);
+			int pixelY = Mathf.Clamp((int)(((starY + 1f) / 2f) * this.galaxySize), 0, this.galaxySize - 1);
+			
 			// emit a particle at the position
-			galaxyParticles.Emit(position, Vector3.zero, 0.05f * galaxySize, float.PositiveInfinity, Color.white);
+			universeColors[pixelX + this.galaxySize * pixelY] = Color.white;
 		}
+		Texture2D universeTexture = new Texture2D(this.galaxySize, this.galaxySize);
+		universeTexture.SetPixels(universeColors);
+		universeTexture.Apply();
+		this.galaxyMaterial.mainTexture = universeTexture;
+	}
+
+	private static Color[] CreateClearColorArray(int size) {
+		Color[] clearColor = new Color[size * size];
+		for (int i = 0; i < clearColor.Length; i++) {
+			clearColor[i] = Color.clear;
+		}
+		return clearColor;
 	}
 }
