@@ -14,6 +14,19 @@ public class GalaxyGeneration {
 	private float rotationFactor;
 	private float randomOffsetXY;
 	private Gradient starColorGradient;
+	private Color32[] universeColors;
+	/// <summary>
+	/// Creates a nwe Galaxy generator.
+	/// </summary>
+	/// <param name="material">The material in which the galaxy should be saved</param>
+	/// <param name="seed">A seed for the generation, null if no specific seed should be used.</param>
+	/// <param name="galaxySize">The width and height of the galaxy texture.</param>
+	/// <param name="starCount">How many stars the univers should have.</param>
+	/// <param name="numberOfArms">How many arms this galaxy should have.</param>
+	/// <param name="armOffsetMax">How far each arm spreads out in radians.</param>
+	/// <param name="rotationFactor">How far each arm gets spiraled around in radians.</param>
+	/// <param name="randomOffsetXY">Random offset.</param>
+	/// <param name="colorGradient">Color gradient for the stars</param>
 	public GalaxyGeneration(Material material,
 		int? seed = null,
 		int galaxySize = 2048,
@@ -43,7 +56,7 @@ public class GalaxyGeneration {
 		if (seed.HasValue) {
 			Random.seed = this.seed.Value;
 		}
-		Color32[] universeColors = CreateClearColorArray(this.galaxySize);
+		this.universeColors = CreateClearColorArray(this.galaxySize);
 		for (int i = 0; i < this.starCount; i++) {	// for loop for stars
 			float distance = Random.value;	// random distance between 0 and size
 			float angle = Random.value * 2 * Mathf.PI; // random angle
@@ -86,12 +99,17 @@ public class GalaxyGeneration {
 			}
 
 			// Set color at position
-			universeColors[pixelX + this.galaxySize * pixelY] = starColor;
+			CreateStar(pixelX, pixelY, starColor);
+
 		}
 		Texture2D universeTexture = new Texture2D(this.galaxySize, this.galaxySize);
 		universeTexture.SetPixels32(universeColors);
 		universeTexture.Apply();
 		this.galaxyMaterial.mainTexture = universeTexture;
+	}
+
+	private void CreateStar(int pixelX, int pixelY, Color starColor) {
+		this.universeColors[pixelX + this.galaxySize * pixelY] = starColor;
 	}
 
 	private static Color32[] CreateClearColorArray(int size) {
