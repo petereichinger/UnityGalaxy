@@ -111,8 +111,28 @@ public class GalaxyGeneration {
 		this.galaxyMaterial.mainTexture = universeTexture;
 	}
 
-	private void CreateStar(int pixelX, int pixelY, Color starColor) {
-		this.universeColors[pixelX + this.galaxySize * pixelY] = starColor;
+
+	private void CreateStar(int x, int y, Color32 starColor) {
+		byte newAlpha = starColor.a;
+		newAlpha /= (byte)2;
+		Color32 aaColor = new Color32(starColor.r, starColor.g, starColor.b, newAlpha);
+		if (x > 0) {
+			this.SetColor(x - 1, y, aaColor);
+		}
+		if (y > 0) {
+			this.SetColor(x, y - 1, aaColor);
+		}
+		if (x < this.galaxySize - 1) {
+			this.SetColor(x + 1, y, aaColor);
+		}
+		if (y < this.galaxySize - 1) {
+			this.SetColor(x, y + 1, aaColor);
+		}
+		this.SetColor(x, y, starColor);
+	}
+
+	private void SetColor(int x, int y, Color32 color) {
+		this.universeColors[x + this.galaxySize * y] = color;
 	}
 
 	private static Color32[] CreateClearColorArray(int size) {
